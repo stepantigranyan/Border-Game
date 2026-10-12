@@ -176,7 +176,7 @@ function drawBoard(board) {
     boardDiv.classList.add('p-1', 'border', 'border-black', 'border-solid');
 
     boardDiv.style.display = 'grid';
-    boardDiv.style.gridTemplateColumns = `repeat(${board.length}, 1fr)`;
+    boardDiv.style.gridTemplateColumns = `repeat(${board[0].length}, 1fr)`;
     boardDiv.style.gap = '5px';
 
     board.forEach((row) => {
@@ -194,7 +194,8 @@ function drawMoves(moves) {
 
 function drawMainSection({ rows, columns }) {
     const boardService = new Board({ rows, columns });
-    const movement = new Movement(rows);
+    const movement = new Movement(rows, columns);
+    const elephantCount = boardService.getElephantCount();
 
     boardService.createBoard();
     boardService.addKnight();
@@ -207,18 +208,15 @@ function drawMainSection({ rows, columns }) {
 
     function move(event) {
         let currentCell, nextCell;
+        currentCell = boardService.knightCords;
 
         if (event.key === 'ArrowUp') {
-            currentCell = boardService.knightCords;
             nextCell = movement.moveUp(currentCell);
         } else if (event.key === 'ArrowDown') {
-            currentCell = boardService.knightCords;
             nextCell = movement.moveDown(currentCell);
         } else if (event.key === 'ArrowLeft') {
-            currentCell = boardService.knightCords;
             nextCell = movement.moveLeft(currentCell);
         } else if (event.key === 'ArrowRight') {
-            currentCell = boardService.knightCords;
             nextCell = movement.moveRight(currentCell);
         }
 
@@ -233,8 +231,7 @@ function drawMainSection({ rows, columns }) {
 
         drawMoves(moves);
 
-        if(defeatedElephantCount === rows) {
-            console.log('victory');
+        if(defeatedElephantCount === elephantCount) {
             window.removeEventListener('keyup', move);
             removeBoard();
             removeTimer();

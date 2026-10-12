@@ -1,45 +1,38 @@
 class Movement {
-    constructor(boardSize) {
-        this.boardSize = boardSize;
+    constructor(rowSize, columnSize) {
+        this.rowSize = rowSize;
+        this.columnSize = columnSize;
         this.moves = 0;
     }
 
     moveUp({ x, y }) {
-        if ( x > 0 ) {
+        if (x > 0) {
             this.moves++;
             return { x: x - 1, y };
         }
-
-        return { x, y };
     }
 
     moveDown({ x, y }) {
-        const boardSize = this.boardSize;
-        if ( x < boardSize - 1 ) {
+        const rowSize = this.rowSize;
+        if (x < rowSize - 1) {
             this.moves++;
             return { x: x + 1, y };
         }
-
-        return { x, y };
     }
 
     moveLeft({ x, y }) {
-        if ( y > 0 ) {
+        if (y > 0) {
             this.moves++;
             return { x, y: y - 1 };
         }
-
-        return { x, y };
     }
 
     moveRight({ x, y }) {
-        const boardSize = this.boardSize;
-        if ( y < boardSize - 1 ) {
+        const columnSize = this.columnSize;
+        if (y < columnSize - 1) {
             this.moves++;
             return { x, y: y + 1 };
         }
-
-        return { x, y };
     }
 
     getMoves() {

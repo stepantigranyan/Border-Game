@@ -6,6 +6,7 @@ class Board {
         this.columns = columns;
         this.board = this.createBoard();
         this.knightCords = { x: undefined, y: undefined };
+        this.elephantCount =  Math.floor(Math.sqrt(rows * columns));
         this.defeatedElephantCount = 0;
     }
 
@@ -41,8 +42,8 @@ class Board {
     }
 
     addElephants() {
-        const elephantCount = this.rows;
         const board = this.board;
+        const elephantCount = this.elephantCount;
 
         let count = 0;
 
@@ -83,6 +84,10 @@ class Board {
 
     getDefeatedElephantsCount() {
         return this.defeatedElephantCount;
+    }
+
+    getElephantCount() {
+        return this.elephantCount;
     }
 }
 
